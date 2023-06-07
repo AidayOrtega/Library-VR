@@ -7,24 +7,29 @@ public class shelf : MonoBehaviour
     public enum ShelfType {fire,water,earth,wind}
     public ShelfType shelfType;
     BookColision bookColision;
-
-    List<GameObject> gameObjects = new List<GameObject>();
+    Collider bookCol;
+    GameObject book;
+    List<GameObject> shelfSpot = new List<GameObject>();
+    public List<GameObject> shelfSlots = new List<GameObject>();
 
     private void OnTriggerEnter(Collider other) 
     {
         if(other.tag == "book")
         {
+            book = other.gameObject;
+            bookCol = book.gameObject.GetComponent<BoxCollider>();
             string booktype = other.GetComponent<BookColision>().bookType.ToString();
             if(booktype == shelfType.ToString())
             {
-                SortBooks();
+                SortBooks(book);
             }
         }
     }
     
-    private void SortBooks()
+    private void SortBooks(GameObject book)
     {
-
+        bookCol.enabled = false;
+        book.transform.position = Vector3.zero;
     }
 
 }
