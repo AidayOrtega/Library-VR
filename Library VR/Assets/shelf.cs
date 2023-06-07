@@ -10,7 +10,7 @@ public class shelf : MonoBehaviour
     Collider bookCol;
     GameObject book;
     List<GameObject> shelfSpot = new List<GameObject>();
-    public GameObject[] shelfSlots;
+    public List<GameObject> shelfSlots = new List<GameObject>();
 
     private void OnTriggerEnter(Collider other) 
     {
@@ -29,7 +29,7 @@ public class shelf : MonoBehaviour
     private void SortBooks(GameObject book)
     {
         bookCol.enabled = false;
-        book.GetComponent<BookColision>().MoveBook();
+        book.transform.position = Vector3.zero;
     }
 
 }
