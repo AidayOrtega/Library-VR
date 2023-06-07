@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BookColision : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other) {
-        
-    }
+    public enum BookType {fire,water,earth,wind}
+    public BookType bookType;
+
 }
