@@ -17,27 +17,34 @@ public class shelf : MonoBehaviour
     [SerializeField]
     public GameObject[] emptySlots;
     public int currentEmptySlot;
+    public bool isFull = false;
+    int i=0;
     private void Start() 
     {
         currentEmptySlot = 0;        
     }
     private void CheckEmptySlot()
     {
-        for(int i=0; i<emptySlots.Length; i++)
+        while (i<=emptySlots.Length)
         {
             if (emptySlots[i].gameObject.GetComponent<Slot>().isSorted == false)
             {
                 currentEmptySlot = i;
                 emptySlot = emptySlots[i].gameObject.GetComponent<Transform>();
                 emptySlotPosition = emptySlot.position;
-                emptySlotRotation = emptySlot.  rotation;
+                emptySlotRotation = emptySlot.rotation;
+                i++;
             }
+        }
+        if(i<=emptySlots.Length +1)
+        {
+            
         }
     }
 
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.tag == "book")
+        if(other.tag == "book" && isFull)
         {
             CheckEmptySlot();
             book = other.gameObject;
