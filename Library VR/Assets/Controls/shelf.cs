@@ -24,21 +24,20 @@ public class shelf : MonoBehaviour
     }
     private void CheckEmptySlot()
     {
-        for(int i=0; i<=emptySlots.Length+1; i++)
+        for(int i=0; i<emptySlots.Length; i++)
         {
-            if (emptySlots[i].gameObject.GetComponent<Slot>().isSorted == false && i<emptySlots.Length+1)
+            if (emptySlots[i].gameObject.GetComponent<Slot>().isSorted == false && i<emptySlots.Length)
             {
                 currentEmptySlot = i;
                 emptySlot = emptySlots[i].gameObject.GetComponent<Transform>();
                 emptySlotPosition = emptySlot.position;
-                emptySlotRotation = emptySlot.  rotation;
-            }else if (i == emptySlots.Length+1)
-            {
-                Debug.Log("This shelf is full");
+                emptySlotRotation = emptySlot.rotation;
             }
-        }
-        
-        
+            // else if (i == emptySlots.Length+1)
+            // {
+            //     Debug.Log("This shelf is full");
+            // }
+        } 
     }
     private void OnTriggerEnter(Collider other) 
     {
