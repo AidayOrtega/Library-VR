@@ -18,33 +18,31 @@ public class shelf : MonoBehaviour
     public GameObject[] emptySlots;
     public int currentEmptySlot;
     public bool isFull = false;
-    int i=0;
     private void Start() 
     {
-        currentEmptySlot = 0;        
+        currentEmptySlot = 0;
     }
     private void CheckEmptySlot()
     {
-        while (i<=emptySlots.Length)
+        for(int i=0; i<=emptySlots.Length+1; i++)
         {
-            if (emptySlots[i].gameObject.GetComponent<Slot>().isSorted == false)
+            if (emptySlots[i].gameObject.GetComponent<Slot>().isSorted == false && i<emptySlots.Length+1)
             {
                 currentEmptySlot = i;
                 emptySlot = emptySlots[i].gameObject.GetComponent<Transform>();
                 emptySlotPosition = emptySlot.position;
-                emptySlotRotation = emptySlot.rotation;
-                i++;
+                emptySlotRotation = emptySlot.  rotation;
+            }else if (i == emptySlots.Length+1)
+            {
+                Debug.Log("This shelf is full");
             }
         }
-        if(i<=emptySlots.Length +1)
-        {
-            
-        }
+        
+        
     }
-
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.tag == "book" && isFull)
+        if(other.tag == "book")
         {
             CheckEmptySlot();
             book = other.gameObject;
