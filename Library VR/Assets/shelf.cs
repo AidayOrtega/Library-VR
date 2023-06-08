@@ -4,50 +4,54 @@ using UnityEngine;
 
 public class shelf : MonoBehaviour
 {
+#region variablesforbooks
+
     public enum ShelfType {fire,water,earth,wind}
     public ShelfType shelfType;
     BookColision bookColision;
-    Collider bookCol;
     GameObject book;
-    public List<GameObject> shelfSpot = new List<GameObject>();
-    public List<GameObject> shelfSlots = new List<GameObject>();
-
-    bool isSorted;
-    
+#endregion
+    private Transform emptySlot;
+    private Vector3 emptySlotPosition;
+    private Quaternion emptySlotRotation;
+    [SerializeField]
+    public GameObject[] emptySlots;
+    public int currentEmptySlot;
     private void Start() 
     {
-        
+        currentEmptySlot = 0;        
     }
-    private void OnTriggerEnter(Collider other) 
+    private void CheckEmptySlot()
     {
-        if(other.tag == "book")
+        for(int i=0; i<emptySlots.Length; i++)
         {
-            book = other.gameObject;
-            bookCol = book.gameObject.GetComponent<BoxCollider>();
-            string booktype = other.GetComponent<BookColision>().bookType.ToString();
-            if(booktype == shelfType.ToString())
+            if (emptySlots[i].gameObject.GetComponent<Slot>().isSorted == false)
             {
-                SortBooks(book);
+                currentEmptySlot = i;
+                emptySlot = emptySlots[i].gameObject.GetComponent<Transform>();
+                emptySlotPosition = emptySlot.position;
+                emptySlotRotation = emptySlot.  rotation;
             }
         }
     }
 
-    private void SlotCheck()
+    private void OnTriggerEnter(Collider other) 
     {
-        foreach (GameObject shelfSlots in shelfSlots)
+        if(other.tag == "book")
         {
-            isSorted = shelfSlots.GetComponent<Slot>().isSorted;
+            CheckEmptySlot();
+            book = other.gameObject;
+            string booktype = other.GetComponent<BookColision>().bookType.ToString();
+            if(booktype == shelfType.ToString())
+            {
+                Destroy(book.gameObject);
+                GameObject newBook = Instantiate(book.gameObject,emptySlotPosition,emptySlotRotation);
+                Collider bookCol = newBook.GetComponent<BoxCollider>();
+                Rigidbody bookRb = newBook.GetComponent<Rigidbody>();
+                bookRb.constraints = RigidbodyConstraints.FreezeAll;
+                newBook.tag = "BookSorted";
+                emptySlots[currentEmptySlot].gameObject.GetComponent<Slot>().isSorted = true;
+            }
         }
     }
-    
-    private void SortBooks(GameObject book)
-    {
-        if(!isSorted)
-        {
-            bookCol.enabled = false;
-            book.transform.position = Vector3.zero;
-        }
-
-    }
-
 }
