@@ -3543,6 +3543,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shelfType: 0
+  shelfSpot:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shelfSlots:
   - {fileID: 978440099}
   - {fileID: 1218787026}
@@ -4209,6 +4218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 978440100}
+  - component: {fileID: 978440101}
   m_Layer: 0
   m_Name: Slot
   m_TagString: Untagged
@@ -4231,6 +4241,19 @@ Transform:
   m_Father: {fileID: 734998787}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &978440101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978440099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a6fc269f420a4408455997a8be9622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSorted: 0
 --- !u!1001 &982644353
 PrefabInstance:
   m_ObjectHideFlags: 0
