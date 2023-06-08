@@ -9,9 +9,15 @@ public class shelf : MonoBehaviour
     BookColision bookColision;
     Collider bookCol;
     GameObject book;
-    List<GameObject> shelfSpot = new List<GameObject>();
+    public List<GameObject> shelfSpot = new List<GameObject>();
     public List<GameObject> shelfSlots = new List<GameObject>();
 
+    bool isSorted;
+    
+    private void Start() 
+    {
+        
+    }
     private void OnTriggerEnter(Collider other) 
     {
         if(other.tag == "book")
@@ -25,11 +31,23 @@ public class shelf : MonoBehaviour
             }
         }
     }
+
+    private void SlotCheck()
+    {
+        foreach (GameObject shelfSlots in shelfSlots)
+        {
+            isSorted = shelfSlots.GetComponent<Slot>().isSorted;
+        }
+    }
     
     private void SortBooks(GameObject book)
     {
-        bookCol.enabled = false;
-        book.transform.position = Vector3.zero;
+        if(!isSorted)
+        {
+            bookCol.enabled = false;
+            book.transform.position = Vector3.zero;
+        }
+
     }
 
 }
