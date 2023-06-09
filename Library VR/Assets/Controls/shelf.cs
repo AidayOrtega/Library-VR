@@ -18,30 +18,27 @@ public class shelf : MonoBehaviour
     public GameObject[] emptySlots;
     public int currentEmptySlot;
     public bool isFull = false;
+    int n = 0;
     private void Start() 
     {
         currentEmptySlot = 0;
     }
     private void CheckEmptySlot()
-    {
-        for(int i=0; i<emptySlots.Length; i++)
+    { 
+        for(int i = emptySlots.Length; i>0; i--)
         {
-            if (emptySlots[i].gameObject.GetComponent<Slot>().isSorted == false && i<emptySlots.Length)
+            if (emptySlots[i-1].gameObject.GetComponent<Slot>().isSorted == false)
             {
-                currentEmptySlot = i;
-                emptySlot = emptySlots[i].gameObject.GetComponent<Transform>();
+                emptySlot = emptySlots[i-1].gameObject.GetComponent<Transform>();
                 emptySlotPosition = emptySlot.position;
                 emptySlotRotation = emptySlot.rotation;
             }
-            // else if (i == emptySlots.Length+1)
-            // {
-            //     Debug.Log("This shelf is full");
-            // }
-        } 
+        }
+        
     }
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.tag == "book")
+        if(other.tag == "book" && n!=emptySlots.Length)
         {
             CheckEmptySlot();
             book = other.gameObject;
@@ -55,7 +52,9 @@ public class shelf : MonoBehaviour
                 bookRb.constraints = RigidbodyConstraints.FreezeAll;
                 newBook.tag = "BookSorted";
                 emptySlots[currentEmptySlot].gameObject.GetComponent<Slot>().isSorted = true;
+                n++;
             }
+            Debug.Log(n);
         }
     }
 }
