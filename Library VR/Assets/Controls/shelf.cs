@@ -11,6 +11,8 @@ public class shelf : MonoBehaviour
     BookColision bookColision;
     GameObject book;
 #endregion
+#region Check for empty slots
+    
     private Transform emptySlot;
     private Vector3 emptySlotPosition;
     private Quaternion emptySlotRotation;
@@ -19,22 +21,22 @@ public class shelf : MonoBehaviour
     public int currentEmptySlot;
     public bool isFull = false;
     int n = 0;
+#endregion
+    public ShelfManager shelfManager;
+
     private void Start() 
     {
         currentEmptySlot = 0;
+        shelfManager = this.gameObject.GetComponentInParent<ShelfManager>();
     }
     private void CheckEmptySlot()
-    { 
-        for(int i = emptySlots.Length; i>0; i--)
+    {
+        if (emptySlots[n].gameObject.GetComponent<Slot>().isSorted == false)
         {
-            if (emptySlots[i-1].gameObject.GetComponent<Slot>().isSorted == false)
-            {
-                emptySlot = emptySlots[i-1].gameObject.GetComponent<Transform>();
-                emptySlotPosition = emptySlot.position;
-                emptySlotRotation = emptySlot.rotation;
-            }
+            emptySlot = emptySlots[n].gameObject.GetComponent<Transform>();
+            emptySlotPosition = emptySlot.position;
+            emptySlotRotation = emptySlot.rotation;
         }
-        
     }
     private void OnTriggerEnter(Collider other) 
     {
@@ -54,7 +56,11 @@ public class shelf : MonoBehaviour
                 emptySlots[currentEmptySlot].gameObject.GetComponent<Slot>().isSorted = true;
                 n++;
             }
-            Debug.Log(n);
+            if(n == emptySlots.Length)
+            {
+                isFull = true;
+                shelfManager.CheckShelves();
+            }
         }
     }
 }
