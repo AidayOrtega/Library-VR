@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using TMPro;
 
 public class ShelfManager : MonoBehaviour
 {
     [SerializeField]
     public GameObject[] shelves;
-   private int n;
+
+    public GameObject winState;
+   private int n = 0;
     public void CheckShelves()
     {
         for(int i = 0;i < shelves.Length; i++)
@@ -14,7 +19,7 @@ public class ShelfManager : MonoBehaviour
             if (shelves[i].gameObject.GetComponent<shelf>().isFull)
                 n++;
             if (n == shelves.Length)
-                Debug.Log("win");
+                winState.SetActive(true);
         }
     }
 }
