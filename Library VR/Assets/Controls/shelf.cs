@@ -25,6 +25,8 @@ public class shelf : MonoBehaviour
 
 #endregion
     public ShelfManager shelfManager;
+    public AudioClip audioClip;
+    public AudioSource  audioSource;
 
     private void Start() 
     {
@@ -58,6 +60,7 @@ public class shelf : MonoBehaviour
                 emptySlots[currentEmptySlot].gameObject.GetComponent<Slot>().isSorted = true;
                 n++;
                 count.bookCount--;
+                audioSource.PlayOneShot(audioClip);
             }
             if(n == emptySlots.Length)
             {
