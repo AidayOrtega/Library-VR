@@ -16,10 +16,12 @@ public class ShelfManager : MonoBehaviour
     {
         for(int i = 0;i < shelves.Length; i++)
         {
-            if (shelves[i].gameObject.GetComponent<shelf>().isFull)
+            if (shelves[i].gameObject.GetComponent<shelf>().isFull){
                 n++;
-            if (n == shelves.Length)
+            }
+            if (n == shelves.Length){
                 winState.SetActive(true);
+            }
         }
     }
 }
