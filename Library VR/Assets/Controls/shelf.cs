@@ -21,6 +21,8 @@ public class shelf : MonoBehaviour
     public int currentEmptySlot;
     public bool isFull = false;
     int n = 0;
+    public BookCounter count;
+
 #endregion
     public ShelfManager shelfManager;
 
@@ -55,6 +57,7 @@ public class shelf : MonoBehaviour
                 newBook.tag = "BookSorted";
                 emptySlots[currentEmptySlot].gameObject.GetComponent<Slot>().isSorted = true;
                 n++;
+                count.bookCount--;
             }
             if(n == emptySlots.Length)
             {
